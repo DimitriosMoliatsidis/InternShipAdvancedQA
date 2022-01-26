@@ -19,6 +19,7 @@ public class InventoryTest {
     @Managed(driver="chrome")
     WebDriver driver;
 
+
     @Test
     public void userlogOut(){
         inventorySteps.isLoggedIntoInventory();
@@ -27,10 +28,15 @@ public class InventoryTest {
     }
 
     @Test
-    public void hello(){
+    public void browseToInventoryDropDown() throws InterruptedException {
         inventorySteps.isLoggedIntoInventory();
-
-
+        inventorySteps.userGoesToMenJackets();
+        inventorySteps.userClicksOnJacket();
+    }
+    @Test
+    public void delete(){
+        inventorySteps.isLoggedIntoInventory();
+        inventorySteps.deleteprod();
     }
 
 }
