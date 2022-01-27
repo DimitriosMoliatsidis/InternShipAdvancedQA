@@ -46,25 +46,79 @@ public class InventoryPage extends PageObject {
 
     }
 
-    public void hoverOnMenMenu()  {
-        WebElement element= $(By.xpath("//*[@id='ui-id-5']")).getElement();
+    public void hoverOnSpecificMenu(String menuName)  {
+        WebElement element=null;
+        switch (menuName) {
+            case "Women":{
+                element= $(By.cssSelector("[id='ui-id-4']")).getElement();
+                break;
+            }
+            case "Men":{
+                element= $(By.cssSelector("[id='ui-id-5']")).getElement();
+                break;
+            }
+            case "Gear":{
+                element= $(By.cssSelector("[id='ui-id-6']")).getElement();
+                break;
+            }
+        }
         action.moveToElement(element);
         action.perform();
 
     }
 
-    public void hoverOnTopsMenu() {
-        WebElement element=$(By.cssSelector("[id='ui-id-17']")).getElement();
+    public void hoverOnTopsMenu(String menuName) {
+        WebElement element=null;
+        switch (menuName) {
+            case "Women":{
+                element=$(By.cssSelector("[id='ui-id-9']")).getElement();
+                break;
+            }
+            case "Men":{
+                element=$(By.cssSelector("[id='ui-id-17']")).getElement();
+                break;
+            }
+        }
         action.moveToElement(element);
         action.perform();
     }
 
-    public void clickOnJackets() {
-        WebElement element=$(By.cssSelector("[id='ui-id-19']")).getElement();
-        action.moveToElement(element);
-        action.perform();
+    public void clickOnTopsMenu(String menuName) {
+        WebElement element=null;
+        switch (menuName) {
+            case "Women":{
+                element=$(By.cssSelector("[id='ui-id-9']")).getElement();
+                break;
+            }
+            case "Men":{
+                element=$(By.cssSelector("[id='ui-id-17']")).getElement();
+                break;
+            }
+        }
         element.click();
     }
+    public void clickOnPriceFilter() {
+        WebElement element =$(By.xpath("//*[@id='narrow-by-list']/div[4]/div[1]")).getElement();
+        element.click();
+        element = $(By.xpath("//*[@id='narrow-by-list']/div[4]/div[2]/ol/li[2]/a")).getElement();
+        element.click();
+    }
+
+    public void clickOnJackets(String menuName) {
+        WebElement element=null;
+        switch (menuName) {
+            case "Women":{
+                element=$(By.cssSelector("[id='ui-id-11']")).getElement();
+                break;
+            }
+            case "Men":{
+                element=$(By.cssSelector("[id='ui-id-19']")).getElement();
+                break;
+            }
+        }
+        element.click();
+    }
+
 
     public void clickOnProductJacket() {
         WebElement element=$(By.cssSelector("[alt='Typhon Performance Fleece-lined Jacket']")).getElement();
@@ -113,5 +167,17 @@ public class InventoryPage extends PageObject {
            $(By.cssSelector("[class='action-primary action-accept']")).click();
            withTimeoutOf(Duration.ofSeconds(4));
 
+    }
+
+    public List<WebElementFacade> getElementsFromPage() {
+        return $$(By.cssSelector("[class='item product product-item']"));
+    }
+
+    public boolean checkIfNextPageAvailable(){
+
+        return $(By.xpath("//*[@id='maincontent']/div[3]/div[1]/div[4]/div[2]/ul/li[3]/a")).isCurrentlyEnabled();
+    }
+    public void clickNextPage(){
+        $(By.xpath("//*[@id='maincontent']/div[3]/div[1]/div[4]/div[2]/ul/li[3]/a")).click();
     }
 }

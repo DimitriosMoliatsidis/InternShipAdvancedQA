@@ -18,6 +18,7 @@ public class InventoryTest {
 
     @Managed(driver="chrome")
     WebDriver driver;
+    private String menuName;
 
 
     @Test
@@ -28,15 +29,24 @@ public class InventoryTest {
     }
 
     @Test
-    public void browseToInventoryDropDown() throws InterruptedException {
+    public void userGoesToMenJacketsAndPutsInCart(){
+        menuName="Men";
         inventorySteps.isLoggedIntoInventory();
-        inventorySteps.userGoesToMenJackets();
+        inventorySteps.userGoesToJackets(menuName);
         inventorySteps.userClicksOnJacket();
     }
     @Test
+    public void userGoesToWomenTopsChecksPriceLimits(){
+        inventorySteps.isLoggedIntoInventory();
+        inventorySteps.userGoesToWomenTops();
+        inventorySteps.userAppliesPriceFilter();
+        inventorySteps.checkAllPrices();
+    }
+
+    @Test
     public void delete(){
         inventorySteps.isLoggedIntoInventory();
-        inventorySteps.deleteprod();
+        inventorySteps.deleteProducts();
     }
 
 }
