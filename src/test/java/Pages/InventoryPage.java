@@ -175,9 +175,9 @@ public class InventoryPage extends PageObject {
 
     public boolean checkIfNextPageAvailable(){
 
-        return $(By.xpath("//*[@id='maincontent']/div[3]/div[1]/div[4]/div[2]/ul/li[3]/a")).isCurrentlyEnabled();
+        return !$$(By.cssSelector("[class='action  next']")).isEmpty();
     }
     public void clickNextPage(){
-        $(By.xpath("//*[@id='maincontent']/div[3]/div[1]/div[4]/div[2]/ul/li[3]/a")).click();
+        $$(By.cssSelector("[class='action  next']")).get(1).click();
     }
 }

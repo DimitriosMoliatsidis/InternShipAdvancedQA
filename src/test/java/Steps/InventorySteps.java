@@ -51,11 +51,11 @@ public class InventorySteps {
     }
 
     @Step
-    public void userGoesToWomenTops(){
+    public void userGoesToTops(String menuName){
 
-        inventoryPage.hoverOnSpecificMenu("Women");
-        inventoryPage.hoverOnTopsMenu("Women");
-        inventoryPage.clickOnTopsMenu("Women");
+        inventoryPage.hoverOnSpecificMenu(menuName);
+        inventoryPage.hoverOnTopsMenu(menuName);
+        inventoryPage.clickOnTopsMenu(menuName);
 
     }
 

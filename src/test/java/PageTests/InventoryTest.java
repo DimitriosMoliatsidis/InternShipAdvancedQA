@@ -37,8 +37,9 @@ public class InventoryTest {
     }
     @Test
     public void userGoesToWomenTopsChecksPriceLimits(){
+        menuName="Women";
         inventorySteps.isLoggedIntoInventory();
-        inventorySteps.userGoesToWomenTops();
+        inventorySteps.userGoesToTops(menuName);
         inventorySteps.userAppliesPriceFilter();
         inventorySteps.checkAllPrices();
     }
