@@ -59,9 +59,10 @@ public class InventorySteps {
 
     }
 
-    public void userAppliesPriceFilter() {
+    @Step
+    public void userAppliesPriceFilter(int lowPrice,String menuName) {
 
-        inventoryPage.clickOnPriceFilter();
+        inventoryPage.clickOnPriceFilter(lowPrice,menuName);
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -97,8 +98,8 @@ public class InventorySteps {
         }
     }
 
-
-    public void checkAllPrices() {
+    @Step
+    public void checkAllPrices(int lowPrice) {
 
         String price;
         while(true) {
@@ -107,7 +108,7 @@ public class InventorySteps {
 
             for (int i = 0; i < elements.size(); i++) {
                 price = elements.get(i).findElement(By.cssSelector("[class='price']")).getText();
-                assertThat(price).isBetween("€30", "€40");
+                assertThat(price).isBetween("€"+lowPrice, "€"+(lowPrice+10));
                 System.out.println(i + 1 + " " + price);
             }
             if(inventoryPage.checkIfNextPageAvailable()){
@@ -119,4 +120,64 @@ public class InventorySteps {
         }
     }
 
+    @Step
+    public void userAppliesCategoryFilter(String category) {
+    inventoryPage.clickOnCategoryFilter(category);
+
+        while(true) {
+            String temp;
+            List<WebElementFacade> elements = inventoryPage.getElementsFromPage();
+
+            for (int i = 0; i < elements.size(); i++) {
+                temp = elements.get(i).findElement(By.cssSelector("[class='product name product-item-name']")).getText();
+                assertThat(temp).contains(category);
+                System.out.println(i + 1 + "ok");
+            }
+            if(inventoryPage.checkIfNextPageAvailable()){
+                inventoryPage.clickNextPage();
+            }
+            else{
+                break;
+            }
+        }
+    }
+
+    @Step
+    public void userGoesToGear(String menuName) {
+        inventoryPage.hoverOnSpecificMenu(menuName);
+        inventoryPage.clickOnBagsMenu();
+        inventoryPage.isOnBagPage();
+    }
+
+    @Step
+    public void userRemovesFilterAndChecks() {
+        inventoryPage.removePriceFilter();
+        String price;
+        boolean flag=false;
+        while(true) {
+
+            List<WebElementFacade> elements = inventoryPage.getElementsFromPage();
+            System.out.println("Now Checking if the filter was removed");
+            for (int i = 0; i < elements.size(); i++) {
+                price = elements.get(i).findElement(By.cssSelector("[class='price']")).getText();
+                if(price.equals("€45.00"))
+                flag=true;
+
+            }
+            if(inventoryPage.checkIfNextPageAvailable()){
+                inventoryPage.clickNextPage();
+            }
+            else{
+                break;
+            }
+        }
+        if (flag)
+            System.out.println("Filter was successfully removed");
+        assertThat(flag).isTrue();
+    }
+
+    @Step
+    public void userAppliesGearPriceFilter(int lowPrice) {
+            inventoryPage.clickOnGearPriceFilter(lowPrice);
+    }
 }

@@ -40,8 +40,27 @@ public class InventoryTest {
         menuName="Women";
         inventorySteps.isLoggedIntoInventory();
         inventorySteps.userGoesToTops(menuName);
-        inventorySteps.userAppliesPriceFilter();
-        inventorySteps.checkAllPrices();
+        inventorySteps.userAppliesPriceFilter(30,menuName);
+        inventorySteps.checkAllPrices(30);
+    }
+    @Test
+    public void userGoesToMenTopAndUsesFilters(){
+        menuName="Men";
+        inventorySteps.isLoggedIntoInventory();
+        inventorySteps.userGoesToTops(menuName);
+        inventorySteps.userAppliesPriceFilter(20,menuName);
+        inventorySteps.userAppliesCategoryFilter("Tank");
+
+
+    }
+    @Test
+    public void userGoesToGearAndChecksFilterOptions(){
+        inventorySteps.isLoggedIntoInventory();
+        inventorySteps.userGoesToGear("Gear");
+        inventorySteps.userAppliesGearPriceFilter(30);
+        inventorySteps.checkAllPrices(30);
+
+        inventorySteps.userRemovesFilterAndChecks();
     }
 
     @Test
